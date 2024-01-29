@@ -13,15 +13,20 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/auth';
+import { AppSPinner } from '../common/AppSpinner';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const toast = useToast();
   const navigate = useNavigate();
+  const [isLoading,setIsloading] = useState(false)
 
   const handleLogin = async () => {
     try {
+      setIsloading(true)
+
+
       // Call the login function from your authentication service
       const response = await login({email, password});
 
@@ -38,6 +43,7 @@ const LoginPage: React.FC = () => {
         isClosable: true,
       });
 
+      setIsloading(false)
       // Redirect to the homepage after successful login
       navigate('/home');
     } catch (error) {
@@ -50,12 +56,19 @@ const LoginPage: React.FC = () => {
         duration: 5000,
         isClosable: true,
       });
+
+      setIsloading(false)
     }
   };
 
   return (
     <Flex minH="80vh" w="100%" >
-    <Center  w="100%" >
+    {
+      isLoading ? 
+      <AppSPinner/>
+      :
+      (
+        <Center  w="100%" >
       <Box mt="-20" w="400px" bg="gray.100" color="black" maxW="md" mx="auto" borderRadius={"20"} p={10}>
       <Text fontSize="xl" fontWeight="bold" mb={4}>
         Login
@@ -86,6 +99,8 @@ const LoginPage: React.FC = () => {
       </Button>
     </Box>
     </Center>
+      )
+    }
     </Flex>
   );
 };
