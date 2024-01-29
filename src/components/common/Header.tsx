@@ -63,9 +63,12 @@ const Header: React.FC<HeaderProps> = ({ userEmail }) => {
       />
      
      <Box display="flex" alignItems="center" mb={4}>
-     <Menu>
+     {
+        isLoggedIn() && (
+          <Menu>
+     
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-          {isLoggedIn() &&  <Avatar name={userEmail} size="md" mr={2} />}
+         <Avatar name={userEmail} size="md" mr={2} />
       </MenuButton>
       <MenuList bg="white">
         <MenuItem onClick={()=>{
@@ -75,6 +78,9 @@ const Header: React.FC<HeaderProps> = ({ userEmail }) => {
         
       </MenuList>
     </Menu>
+        )
+      }
+     
        
         
       </Box>
