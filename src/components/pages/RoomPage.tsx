@@ -527,7 +527,7 @@ const RoomPage: React.FC = () => {
       .then((response) => {
         
         setRoom(response.data)
-        
+     
         api.get(`units/${unitId}`,{
           headers: {
             'Authorization': `Bearer ${getToken()}`,
@@ -538,6 +538,7 @@ const RoomPage: React.FC = () => {
         .then((res)=>{
           setUnit(res.data)
           setIsloading(false)
+       
          
           
         })
@@ -588,12 +589,12 @@ const RoomPage: React.FC = () => {
 
 
   return (
-    <Flex h="100vh" overflowY={"scroll"}>
+    <Flex h="100vh" overflowY={"scroll"} overflowX={"scroll"}>
       {isLoading ? 
        <AppSPinner/>
       :
       <Box w="100%" p={4}>
-      <Flex justify={"space-between"}>
+      <Flex justify={"space-between"} flexWrap={"wrap"}>
       <Heading as="h2" size="lg" mb={4}>
         Estoque {room?.name}
       </Heading>
